@@ -1,0 +1,203 @@
+1 activity 
+DECLARE
+  game_name VARCHAR2(100) := 'The Legend of Zelda: Ocarina of Time';
+  creator VARCHAR2(50) := 'Nintendo';
+  quantity NUMBER := 1;
+  genre VARCHAR2(50) := 'Action-adventure';
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Game Name: ' || game_name);
+  DBMS_OUTPUT.PUT_LINE('Creator: ' || creator);
+  DBMS_OUTPUT.PUT_LINE('Quantity: ' || quantity);
+  DBMS_OUTPUT.PUT_LINE('Genre: ' || genre);
+END;
+/
+Challenge questions 
+To modify the code to reflect adding another copy, you would simply increment the  quantity  variable
+
+I've already added a  genre  variable to the code above.  You could add other details in a similar way, such as platform ("Nintendo 64"), release date, or rating.
+
+
+2 activity
+
+DECLARE
+  weekly_hours NUMBER := 5;
+  weeks NUMBER := 12;
+  total_hours NUMBER;
+BEGIN
+  total_hours := weekly_hours * weeks;
+  DBMS_OUTPUT.PUT_LINE('After ' || weeks || ' weeks, you have spent a total of ' || total_hours || ' hours learning.');
+END;
+/
+Challenge questions:
+The provided example uses weekly hours, not monthly savings.  If we were to adapt it to monthly savings, the modification would be straightforward.  Let's say monthly savings changed to  monthly_savings  (a number).
+To add a bonus for a one-time achievement, you would add a new variable and incorporate it into the total calculation.  For example:
+ 
+sql
+  
+
+DECLARE
+  weekly_hours NUMBER := 5;
+  weeks NUMBER := 12;
+  bonus_hours NUMBER := 10; -- Bonus for completing a project
+  total_hours NUMBER;
+BEGIN
+  total_hours := (weekly_hours * weeks) + bonus_hours;
+  DBMS_OUTPUT.PUT_LINE('After ' || weeks || ' weeks, including a ' || bonus_hours || ' hour bonus, you have spent a total of ' || total_hours || ' hours learning.');
+END;
+/
+
+3 activity 
+DECLARE
+  player_points NUMBER := 1200; -- Example player points
+  required_points NUMBER := 1000;
+BEGIN
+  IF player_points >= required_points THEN
+    DBMS_OUTPUT.PUT_LINE('Congratulations! You have unlocked the special item.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('You need more points to unlock the special item. Keep playing!');
+  END IF;
+END;
+/
+Challenge questions:
+If the  required_points  increases, the condition becomes stricter.  Players will need more points to unlock the item.  The code will still function correctly, but the outcome (the message printed) will change depending on whether the player's points meet the new requirement.
+
+We can add another  IF  condition to handle extra-high scores. For example, if the player scores more than 2000 points, a special message can be displayed:
+ 
+sql
+  
+
+DECLARE
+  player_points NUMBER := 2500; -- Example player points
+  required_points NUMBER := 1000;
+BEGIN
+  IF player_points >= 2000 THEN
+    DBMS_OUTPUT.PUT_LINE('Exceptional score! You have earned a bonus reward along with the special item!');
+  ELSIF player_points >= required_points THEN
+    DBMS_OUTPUT.PUT_LINE('Congratulations! You have unlocked the special item.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('You need more points to unlock the special item. Keep playing!');
+  END IF;
+END;
+/
+
+4 activity 
+CREATE TABLE book_collection (
+  book_id NUMBER PRIMARY KEY,
+  book_name VARCHAR2(100),
+  author VARCHAR2(50),
+  genre VARCHAR2(30),
+  year_published NUMBER
+);
+INSERT INTO book_collection VALUES (1, 'The Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy', 1954);
+INSERT INTO book_collection VALUES (2, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', 1960);
+INSERT INTO book_collection VALUES (3, '1984', 'George Orwell', 'Dystopian', 1949);
+INSERT INTO book_collection VALUES (4, 'Pride and Prejudice', 'Jane Austen', 'Romance', 1813);
+Challenge questions:
+To update a book's details, use the  UPDATE  statement. For example, to correct the publication year of "1984":
+ 
+sql
+  
+
+UPDATE book_collection
+SET year_published = 1949
+WHERE book_name = '1984';
+
+To delete a book from the table, use the  DELETE  statement. For example, to remove "Pride and Prejudice":
+ 
+sql
+  
+
+DELETE FROM book_collection
+WHERE book_name = 'Pride and Prejudice';
+
+Let's add a column indicating whether they prefer online or offline activities:
+ 
+sql
+  
+
+ALTER TABLE gamers ADD COLUMN activity_preference VARCHAR2(20);
+ALTER TABLE pet_owners ADD COLUMN activity_preference VARCHAR2(20);
+
+UPDATE gamers SET activity_preference = 'Online' WHERE gamer_id = 1;
+UPDATE gamers SET activity_preference = 'Offline' WHERE gamer_id = 2;
+UPDATE gamers SET activity_preference = 'Online' WHERE gamer_id = 3;
+
+UPDATE pet_owners SET activity_preference = 'Online' WHERE owner_id = 1;
+UPDATE pet_owners SET activity_preference = 'Offline' WHERE owner_id = 4;
+UPDATE pet_owners SET activity_preference = 'Offline' WHERE owner_id = 3;
+
+
+SELECT g.gamer_name, g.activity_preference
+FROM gamers g
+JOIN pet_owners p ON g.gamer_id = p.owner_id;
+ 
+ 
+Now the query also retrieves the activity preference, showing that Alex prefers online activities in both contexts.
+To list all members from both groups, regardless of whether they're in both, we use a  UNION ALL :
+ 
+sql
+  
+
+SELECT gamer_name FROM gamers
+UNION ALL
+SELECT owner_name FROM pet_owners;
+ 
+ 
+This will list all names from both tables, even those that appear only once.  Remember that  UNION ALL  includes duplicates, if any exist.  A simple  UNION  would remove duplicates.
+
+5 activity 
+
+CREATE TABLE gamers (
+  gamer_id NUMBER PRIMARY KEY,
+  gamer_name VARCHAR2(50),
+  favorite_game_activity VARCHAR2(50)
+);
+
+CREATE TABLE pet_owners (
+  owner_id NUMBER PRIMARY KEY,
+  owner_name VARCHAR2(50),
+  favorite_pet_activity VARCHAR2(50)
+);
+
+INSERT INTO gamers VALUES (1, 'kyla', 'Multiplayer gaming');
+INSERT INTO gamers VALUES (2, 'Lyca', 'Single-player RPGs');
+INSERT INTO gamers VALUES (3, 'marie_joy', 'Competitive esports');
+
+INSERT INTO pet_owners VALUES (1, 'joven', 'Dog walking');
+INSERT INTO pet_owners VALUES (4, 'marvin', 'Cat grooming');
+INSERT INTO pet_owners VALUES (3, 'john_rey', 'Pet training');
+Challenge questions:
+To modify the code to reflect adding another copy, simply increment the  quantity  variable.  For example:
+ 
+sql
+  
+
+DECLARE
+  item_name VARCHAR2(50) := 'The Legend of Zelda: Ocarina of Time';
+  creator VARCHAR2(50) := 'Nintendo';
+  quantity NUMBER := 2; -- Increased quantity to 2
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Item Name: ' || item_name);
+  DBMS_OUTPUT.PUT_LINE('Creator: ' || creator);
+  DBMS_OUTPUT.PUT_LINE('Quantity: ' || quantity);
+END;
+/
+
+Yes, we can add another variable to store the genre.  For example:
+ 
+sql
+  
+
+DECLARE
+  item_name VARCHAR2(50) := 'The Legend of Zelda: Ocarina of Time';
+  creator VARCHAR2(50) := 'Nintendo';
+  quantity NUMBER := 1;
+  genre VARCHAR2(50) := 'Action-Adventure';
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Item Name: ' || item_name);
+  DBMS_OUTPUT.PUT_LINE('Creator: ' || creator);
+  DBMS_OUTPUT.PUT_LINE('Quantity: ' || quantity);
+  DBMS_OUTPUT.PUT_LINE('Genre: ' || genre);
+END;
+
+
