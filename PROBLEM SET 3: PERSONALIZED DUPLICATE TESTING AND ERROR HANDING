@@ -1,0 +1,9 @@
+1.)
+A scenario would be attempting to insert a new entry into  PET_OWNER  with a  PET_ID  that already exists. For example, trying to add a new owner record associated with  PET_ID  1 (already linked to 'KATTE') would violate the unique constraint.
+2.)
+We'll attempt to insert a duplicate  PET_ID  into  PET_OWNER  and observe the database's response.
+
+#Attempt to insert a duplicate PET_ID
+INSERT INTO PET_OWNER (OWNER_ID, OWNER_NAME, PET_ID, FAV_PET) VALUES (5, 'YANLEY', 1, 'Dog'); 
+3.) REFLECTION:
+A try-except block in Python can handle potential database errors. The try block attempts the insertion, and if a constraint violation occurs, the except block catches the exception to prevent the program from crashing. Using the connection.rollback() method is crucial to ensure data consistency by undoing any partial changes made before the error occurred. Providing appropriate error messages can inform the user about the problem.
