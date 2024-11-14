@@ -1,0 +1,7 @@
+# Tables already created. Adding unique constraint (if not already present):
+ALTER TABLE PET_OWNER ADD CONSTRAINT unique_pet_owner UNIQUE (PET_ID);
+#Inserting data:
+INSERT INTO CUTE_PET (PET_ID, PET_NAME, PET_TYPE) VALUES (5, 'Whiskers', 'Cat');
+INSERT INTO PET_OWNER (OWNER_ID, OWNER_NAME, PET_ID, FAV_PET) VALUES (5, 'Jane Doe', 5, 'Cat');
+#Attempting to insert a duplicate PET_ID in PET_OWNER will result in an error:
+#INSERT INTO PET_OWNER (OWNER_ID, OWNER_NAME, PET_ID, FAV_PET) VALUES (6, 'John Smith', 5, 'Dog');
