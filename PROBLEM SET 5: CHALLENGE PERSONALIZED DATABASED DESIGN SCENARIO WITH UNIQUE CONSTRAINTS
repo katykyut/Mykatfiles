@@ -1,0 +1,32 @@
+PROBLEM SET 5:
+CREATE TABLE Artists (
+    artist_id NUMBER PRIMARY KEY,
+    artist_name VARCHAR2(255) UNIQUE
+);
+
+CREATE TABLE Songs (
+    song_id NUMBER PRIMARY KEY,
+    song_title VARCHAR2(255) UNIQUE,
+    artist_id NUMBER,
+    genre VARCHAR2(255),
+    FOREIGN KEY (artist_id) REFERENCES Artists(artist_id)
+);
+
+#Adding the genre column:
+ALTER TABLE Songs ADD genre VARCHAR2(255);
+
+INSERT INTO Artists (artist_id, artist_name) VALUES (1, 'The Beatles');
+INSERT INTO Songs (song_id, song_title, artist_id, genre) VALUES (1, 'Hey Jude', 1, 'Rock');
+INSERT INTO Songs (song_id, song_title, artist_id, genre) VALUES (2, 'Let It Be', 1, 'Rock');
+
+--Attempting to insert a duplicate will result in an error:
+--INSERT INTO Artists (artist_id, artist_name) VALUES (2, 'The Beatles');
+
+1.) Define Your Unique Scenario:
+ - Scenario:  A music library database with two tables:  Artists  and  Songs .
+2.) Apply Unique Constraints:
+- Unique Constraints: We'll enforce a unique constraint on  artist_name  in the  Artists  table and  song_title  in the  Songs  table.  This prevents duplicate artist names and song titles.
+3.) Alter the Structure:
+- New Column: We'll add a  genre  column to the  Songs  table using the  ALTER TABLE  command.
+4.) REFLECTION:
+Unique constraints on  artist_name  and  song_title  ensure data accuracy, while the foreign key linking  Songs  to  Artists  maintains referential integrity, simplifying data retrieval, updates, and deletions and improving database reliability.
