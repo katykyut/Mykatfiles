@@ -1,0 +1,41 @@
+CREATE TABLE CUTE_PET(
+PET_ID NUMBER PRIMARY KEY,
+PET_NAME VARCHAR2(50),
+PET_TYPE VARCHAR2(50));
+
+INSERT INTO CUTE_PET(PET_ID, PET_NAME,PET_TYPE)
+VALUES(1, 'SHY', 'DOG');
+INSERT INTO CUTE_PET(PET_ID, PET_NAME,PET_TYPE)
+VALUES(2, 'BROWNIE', 'DOG');
+INSERT INTO CUTE_PET(PET_ID, PET_NAME,PET_TYPE)
+VALUES(3, 'SKY', 'CAT');
+INSERT INTO CUTE_PET(PET_ID, PET_NAME,PET_TYPE)
+VALUES(4, 'HEAVEN', 'CAT');
+
+CREATE TABLE PET_OWNER(
+OWNER_ID NUMBER PRIMARY KEY,
+OWNER_NAME VARCHAR2(50),
+PET_ID NUMBER,
+FAV_PET VARCHAR2(50));
+
+INSERT INTO PETS_OWNER(OWNER_ID, OWNER_NAME, PET_ID, FAV_PET)
+VALUES(1, 'KATTE', 1, 'DOG');
+INSERT INTO PETS_OWNER(OWNER_ID, OWNER_NAME, PET_ID, FAV_PET)
+VALUES(2, 'MARIE_JOY', 2, 'DOG');
+INSERT INTO PETS_OWNER(OWNER_ID, OWNER_NAME, PET_ID, FAV_PET)
+VALUES(3, 'AUSTIN', 3, 'CAT');
+INSERT INTO PETS_OWNER(OWNER_ID, OWNER_NAME, PET_ID, FAV_PET)
+VALUES(4, 'JOHN_REY', 4, 'CAT');
+
+2.)
+ALTER TABLE PET_OWNER ADD CONSTRAINT unique_pet_owner UNIQUE (PET_ID);
+3.)
+# Tables already created. Adding unique constraint (if not already present):
+ALTER TABLE PET_OWNER ADD CONSTRAINT unique_pet_owner UNIQUE (PET_ID);
+#Inserting data:
+INSERT INTO CUTE_PET (PET_ID, PET_NAME, PET_TYPE) VALUES (5, 'Whiskers', 'Cat');
+INSERT INTO PET_OWNER (OWNER_ID, OWNER_NAME, PET_ID, FAV_PET) VALUES (5, 'Jane Doe', 5, 'Cat');
+#Attempting to insert a duplicate PET_ID in PET_OWNER will result in an error:
+#INSERT INTO PET_OWNER (OWNER_ID, OWNER_NAME, PET_ID, FAV_PET) VALUES (6, 'John Smith', 5, 'Dog');
+4.) REFLECTION 
+In this example, the PET_ID acts as a foreign key linking PET_OWNER to CUTE_PET. The unique constraint on PET_ID in PET_OWNER ensures that each PET_ID is associated with only one owner, maintaining data consistency and referential integrity between the tables. These principles are essential for data integrity in any database. More complex scenarios may require different table designs and constraint strategies, such as handling multiple pets per owner.
