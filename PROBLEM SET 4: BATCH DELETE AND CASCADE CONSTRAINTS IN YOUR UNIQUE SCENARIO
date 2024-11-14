@@ -1,0 +1,14 @@
+1.)
+ALTER TABLE PET_OWNER
+ADD CONSTRAINT fk_pet_owner_cute_pet
+FOREIGN KEY (PET_ID) REFERENCES CUTE_PET(PET_ID) ON DELETE CASCADE;
+2.)
+This command deletes all records from  CUTE_PET  where the  PET_TYPE  is 'DOG'.  Due to the cascade constraint, it will also delete the associated records in  PET_OWNER .
+
+DELETE FROM CUTE_PET WHERE PET_TYPE = 'DOG';
+
+3.)
+DROP TABLE CUTE_PET CASCADE CONSTRAINTS;
+
+4.) REFLECTION:
+CASCADE CONSTRAINTS  maintains referential integrity by automatically deleting dependent records when a parent record is deleted, preventing orphaned data and simplifying database management.
