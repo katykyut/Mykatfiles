@@ -1,0 +1,9 @@
+1.)
+ALTER TABLE CUTE_PET ADD adoption_date DATE;
+ALTER TABLE PET_OWNER ADD adoption_fee NUMBER;
+2.)
+ALTER TABLE CUTE_PET ADD CONSTRAINT unique_pet_id UNIQUE (PET_ID);
+ALTER TABLE PET_OWNER ADD CONSTRAINT fk_pet_id FOREIGN KEY (PET_ID) REFERENCES CUTE_PET(PET_ID);
+
+REFLECTION:
+Unique  PET_ID  in  CUTE_PET  prevents duplicates; the foreign key in  PET_OWNER  ensures referential integrity, preventing orphaned records and improving data consistency and database reliability.
